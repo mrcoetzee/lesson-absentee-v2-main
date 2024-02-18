@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+ 
+
+
+{% block content %}
+
+<style>
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.border {
+    border: 1px solid #3498db; /* Blue border */
+    border-radius: 10px;
+}
+
+.bg-dark {
+    background-color: #3498db; /* Blue background color */
+}
+
+.text-white {
+    color: #fff;
+}
+
+h4 {
+    color: #f39c12; /* Yellow heading color */
+}
+
+.list-group {
+    margin-top: 10px;
+}
+
+.list-group li {
+    list-style: none;
+    padding: 10px;
+    background-color: #2980b9; /* Dark blue background color for list items */
+    margin-bottom: 5px;
+}
+
+input[type="hidden"] {
+    display: none;
+}
+.line{
+    border: none;
+    height : 2px;
+    background-color: #000;
+}
+.div-color-1{
+    background-color: #c0d6e4;
+}
+
+
+</style>
+
+<form action="{% url 'home' %}" method="post">
+    {% csrf_token %}
+
+
+    <!--Display the buttons to navigate to the different pages-->
+<!------------------------------------------------------------------------------------------------------>
+    <div class="container p-5 my-5 bg-secondary text-white ">
+        <div class="row">
+            <div class=" col">
+                <button type="submit" class="btn btn-primary" name="btnAbsentees", value="Absentees">Manage Absentees</button>
+            </div>
+            <div class=" col">        
+                <button type="submit" class="btn btn-warning" value="Classes", name="btnClasses">Manage Classes</button>
+            </div>
+            {% if current_user.is_superuser %}    
+                <div class=" col">                
+                    <button type="submit" class="btn btn-danger" value="Stats" name="btnStats" id="btnStats">Absentee Statistics</button>               
+                </div>
+            {% endif %}
+        </div>
+    </div>
+<!------------------------------------------------------------------------------------------------------>
+
+<!--Display a list of classes for the logged in teacher-->
+<!------------------------------------------------------------------------------------------------------>
+    <div class="container p-5 my-5 border text-primary" style="background-color: #c6bdae" >
+        <h3 class="text-dark">Today's absentees: {{date_today}}</h3>
+        <hr class="line" width="50%"/>
+        {% for item in home_list %}
+
+            <h5 class="mb-2 mt-2" style="color:#514e4c">{{item.subject}} {{item.grade}} | {{item.desc}}</h5>
+            <div class="col-md-5 border p-2"> 
+            {% for absentee in item.absentee_list %}
+                          
+                <li class="text-black">
+                    {{absentee}}               
+                </li>          
+            
+            {% endfor %}
+            </div>
+            <hr style="color:#514e4c"/>
+        {% endfor %}
+        <input type = "hidden" name = "classid" id="classid" value = "">
+    </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+ 
+
+
+{% block content %}
+<!------------------------------------------------------------------------------------------------------>
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <!-------------------------------------------------------------------------------------------------->
+    <!--List of learners-->
+    <div class="container p-5 my-5 border  bg-dark text-white">
+        
+        <h4>Your classes:</h4>
+        {% for class in classes %}
+            
+            <div class="list-group">
+                <li class="list-group-item list-group-item-action selector" id="{{class.id}}"
+                onclick="myFunction('{{class.id}}')">
+      
+                <div class="row">
+                    <div class="col-md-2" >{{class.subject}} {{class.grade}}</div>
+                    <div class="col-md-4">{{class.description}}</div>
+                </div>
+                
+                </li>
+            </div>
+        {% endfor %}
+    </div>
+    <input type = "hidden" name = "classid" id="classid" value = "">
+    <!-------------------------------------------------------------------------------------------------->
+
+<!--Input buttons-->
+<!------------------------------------------------------------------------------------------------------>
+<div class="container p-5 my-5 bg-secondary text-white">
+    <table style="border-spacing: 15px; border-collapse: separate; width:50%" >
+        <tr>
+            <th>Select Lesson Number</th>
+            <th style="text-align: center;">Double Lesson</th>
+        </tr>
+        <tr>
+            <td>
+                <select class="form-control" id="lessonNumber" name="lessonNumber">
+                    <option>Register Class</option>
+                    <option>LO</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    
+                </select>
+            </td>
+            <td style="text-align: center;">
+                <input class= "form-check-input fs-4" type="checkbox" value="1" id="double_check" name = "double_check">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-primary" name="btnSubmitAbsentees", value="SubmitAbsentees">Submit Absentees</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Past absentees: <br/>
+                <input id="absentee_date_old" name="absentee_date_old" class="form-control" type="date" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!--
+<div class="container p-5 my-5 bg-secondary text-white">
+    
+    <div class="row">
+
+          
+      
+          
+                <div class="col-md-3">
+                    <label for="lessonNumber" class="form-label">Select Lesson Number:</label>
+                    <select class="form-control" id="lessonNumber" name="lessonNumber">
+                        <option>Register Class</option>
+                        <option>LO</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        
+                    </select>
+                </div>           
+                
+                <div class="col-md-3">
+                    
+                    <div class="form-check">
+                        <br/>
+                        <label>Double Lesson</label>
+                        <input class= "form-check-input fs-4" type="checkbox" value="1" id="double_check" name = "double_check">
+                    </div>
+                </div>
+    </div>
+    <div class="row">
+                <div class="col-md-3">
+                    
+                    
+                    <br/>
+                    <button type="submit" class="btn btn-primary" name="btnSubmitAbsentees", value="SubmitAbsentees">Submit Absentees</button>
+                </div>
+                <div class="col text-end">
+                    <input id="absentee_date_old" name="absentee_date_old" class="form-control" type="date" />
+
+                </div>
+                
+    </div>
+
+</div> 
+  -->      <!------------------------------------------------------------------------------------------>
+        
+    
+
+
+</form>
+
+<!------------------------------------------------------------------------------------------------------>
+<!--js code-->
+<script>
+    function myFunction(id) {
+        var ele = document.getElementById(id);
+        if (ele.classList.contains('active')) 
+        {
+            ele.classList.remove('active');
+            
+        }
+        else
+        {
+            var selectableItems = document.querySelectorAll('.selector');
+            for (var i = 0; i < selectableItems.length; i++) 
+            {
+                
+                selectableItems[i].classList.remove('active');
+            }
+            
+            ele.classList.add('active');
+        }
+                 
+        document.getElementById("classid").value = id;
+    }
+</script>
+
+
+{% endblock %}
