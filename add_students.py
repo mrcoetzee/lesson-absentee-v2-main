@@ -30,5 +30,5 @@ def add_data_from_csv(csv_file_path):
 
 
 if __name__ == "__main__":
-    csv_file_path = 'C:/Users/AKL/Desktop/Learners.csv'
+    csv_file_path = 'C:/Storage/Lesson Absentees/lesson-absentee-v2-main/random/Learners.csv'
     add_data_from_csv(csv_file_path)
